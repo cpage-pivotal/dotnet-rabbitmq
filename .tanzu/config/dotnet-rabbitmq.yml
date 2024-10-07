@@ -7,6 +7,15 @@ spec:
   build:
     buildpacks: {}
     path: ../..
+    nonSecretEnv:
+      - name: DOTNET_CLI_TELEMETRY_OPTOUT
+        value: "true"
+      - name: DOTNET_EnableWriteXorExecute
+        value: "0"
+  acceptedServiceBindings:
+    - name: rabbitmq-connector
+      types:
+        - rabbitmq
   ports:
   - name: main
     port: 8080
