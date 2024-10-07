@@ -43,34 +43,15 @@ To receive a RabbitMQ message that you have sent: click the Receive button. Mess
 
 ## Running on Tanzu Platform for Kubernetes
 
-### Create RabbitMQ class claim
-
-In order to connect to RabbitMQ for this sample, you must have a class claim available for the application to bind to.
-The commands listed below will create the claim, and the claim will be bound to the application via the definition
-in the `workload.yaml` that is included in the `config` folder of this project.
-
-```
-kubectl config set-context --current --namespace=your-namespace
-tanzu service class-claim create my-postgresql-service --class postgresql-unmanaged
-```
-
-If you'd like to learn more about these services, see [claiming services](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-claim-services.html)
-and [consuming services](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/getting-started-consume-services.html) in the documentation.
 
 ### App deployment
+`tanzu deploy -y`
+### Create RabbitMQ Service
+`tanzu service create RabbitmqCluster/rabbitmq`
+### Bind Service to App
+`tanzu service bind RabbitmqCluster/rabbitmq ContainerApp/dotnet-rabbitmq --as rabbitmq-connector`
 
-To deploy from local source code:
-```
-tanzu app workload apply --local-path . --file ./config/workload.yaml -y
-```
-
-Alternatively, from locally built binaries:
-```
-dotnet publish -r linux-x64 --no-self-contained
-tanzu app workload apply --local-path ./bin/Release/net8.0/linux-x64/publish --file ./config/workload.yaml -y
-```
-
-See the [Tanzu documentation](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.8/tap/getting-started-deploy-first-app.html) for details.
+See the [Tanzu documentation](https://docs.vmware.com/en/VMware-Tanzu-Platform/SaaS/create-manage-apps-tanzu-platform-k8s/how-to-build-bind-deploy.html) for details.
 
 ---
 
