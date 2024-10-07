@@ -4,8 +4,8 @@ metadata:
   name: dotnet-rabbitmq-route
   annotations:
     healthcheck.gslb.tanzu.vmware.com/service: dotnet-rabbitmq
-    # healthcheck.gslb.tanzu.vmware.com/path: /actuator/health
-    # healthcheck.gslb.tanzu.vmware.com/port: "80"
+    healthcheck.gslb.tanzu.vmware.com/path: /actuator/health
+    healthcheck.gslb.tanzu.vmware.com/port: "8080"
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io
